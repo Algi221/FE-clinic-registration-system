@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "@/context/AuthContext";
 import api from "@/api/api";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
@@ -11,12 +10,10 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge"; // I'll create this simplified
 import { toast } from "react-hot-toast";
 import { CheckCircle2, XCircle, Clock } from "lucide-react";
 
-const Dashboard = () => {
-  const { user } = useAuth();
+const AdminDashboard = () => {
   const [pendaftaran, setPendaftaran] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -71,9 +68,7 @@ const Dashboard = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold tracking-tight">
-          {user.role === "ADMIN" ? "Dashboard Admin" : "Riwayat Pendaftaran"}
-        </h1>
+        <h1 className="text-3xl font-bold tracking-tight">Dashboard Admin</h1>
       </div>
 
       <Card>
@@ -92,12 +87,12 @@ const Dashboard = () => {
               <TableHeader>
                 <TableRow>
                   <TableHead>Tanggal</TableHead>
-                  {user.role === "ADMIN" && <TableHead>Pasien</TableHead>}
+                  <TableHead>Pasien</TableHead>
                   <TableHead>Poli</TableHead>
                   <TableHead>Dokter</TableHead>
                   <TableHead>Jadwal</TableHead>
                   <TableHead>Status</TableHead>
-                  {user.role === "ADMIN" && <TableHead>Aksi</TableHead>}
+                  <TableHead>Aksi</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -108,44 +103,42 @@ const Dashboard = () => {
                         "id-ID",
                       )}
                     </TableCell>
-                    {user.role === "ADMIN" && (
-                      <TableCell>{item.pasien.name}</TableCell>
-                    )}
-                    <TableCell>{item.jadwal.dokter.poli.nama}</TableCell>
-                    <TableCell>{item.jadwal.dokter.nama}</TableCell>
+                    <TableCell>{item.pasien?.name || "Unknown"}</TableCell>
                     <TableCell>
-                      {item.jadwal.hari}, {item.jadwal.jamMulai} -{" "}
-                      {item.jadwal.jamSelesai}
+                      {item.jadwal?.dokter?.poli?.nama || "-"}
+                    </TableCell>
+                    <TableCell>{item.jadwal?.dokter?.nama || "-"}</TableCell>
+                    <TableCell>
+                      {item.jadwal?.hari}, {item.jadwal?.jamMulai} -{" "}
+                      {item.jadwal?.jamSelesai}
                     </TableCell>
                     <TableCell>{getStatusBadge(item.status)}</TableCell>
-                    {user.role === "ADMIN" && (
-                      <TableCell className="space-x-2">
-                        {item.status === "PENDING" && (
-                          <>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-green-600 border-green-200 hover:bg-green-50"
-                              onClick={() =>
-                                handleUpdateStatus(item.id, "ACCEPTED")
-                              }
-                            >
-                              Terima
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-red-600 border-red-200 hover:bg-red-50"
-                              onClick={() =>
-                                handleUpdateStatus(item.id, "REJECTED")
-                              }
-                            >
-                              Tolak
-                            </Button>
-                          </>
-                        )}
-                      </TableCell>
-                    )}
+                    <TableCell className="space-x-2">
+                      {item.status === "PENDING" && (
+                        <>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-green-600 border-green-200 hover:bg-green-50"
+                            onClick={() =>
+                              handleUpdateStatus(item.id, "ACCEPTED")
+                            }
+                          >
+                            Terima
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-red-600 border-red-200 hover:bg-red-50"
+                            onClick={() =>
+                              handleUpdateStatus(item.id, "REJECTED")
+                            }
+                          >
+                            Tolak
+                          </Button>
+                        </>
+                      )}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -157,4 +150,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;
