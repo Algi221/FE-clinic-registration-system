@@ -20,7 +20,7 @@ const Login = () => {
       await login(email, password);
       toast.success("Login berhasil!");
       navigate("/");
-    } catch (error) {
+    } catch {
       toast.error("Login gagal. Cek email & password.");
     } finally {
       setLoading(false);
@@ -39,20 +39,21 @@ const Login = () => {
       </button>
 
       {/* CARD */}
-      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+      <div className="w-full max-w-7xl bg-white rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
 
         {/* LEFT */}
-        <div className="hidden md:flex items-center justify-center bg-white p-10">
+        <div className="hidden md:flex items-center justify-center bg-white p-12">
           <img
             src="/gambar-clinik.png"
             alt="Login Illustration"
-            className="max-w-sm"
+            className="max-w-md"
           />
         </div>
 
         {/* RIGHT */}
-        <div className="bg-[#0F6A78] text-white p-10 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold mb-8">Welcome back!</h2>
+        <div className="bg-[#0F6A78] text-white p-12 flex flex-col justify-center">
+          <h2 className="text-4xl font-bold mb-2">Form Login</h2>
+          <p className="text-white/80 mb-8">Silakan masuk dengan email dan password Anda.</p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
 
