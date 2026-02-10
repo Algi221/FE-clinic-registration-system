@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Bell } from "lucide-react";
-import { useRealtimeNotifications } from "../../hooks/useRealtimeNotifications";
+import { useNotifications } from "../../context/NotificationContext";
 import { useAuth } from "../../context/AuthContext";
 
 const NotificationBell = () => {
@@ -13,7 +13,7 @@ const NotificationBell = () => {
     markAsRead,
     markAllAsRead,
     clearNotifications,
-  } = useRealtimeNotifications(user?.role, user?.id);
+  } = useNotifications();
 
   const formatTime = (timestamp) => {
     const date = new Date(timestamp);

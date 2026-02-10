@@ -19,7 +19,7 @@ const Login = () => {
     try {
       await login(email, password);
       toast.success("Login berhasil!");
-      navigate("/");
+      navigate("/dashboard"); // Redirect ke dashboard (patient home)
     } catch (error) {
       toast.error("Login gagal. Cek email & password.");
     } finally {
@@ -29,7 +29,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white relative px-6">
-
       {/* BACK BUTTON */}
       <button
         onClick={() => navigate(-1)}
@@ -40,7 +39,6 @@ const Login = () => {
 
       {/* CARD */}
       <div className="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
-
         {/* LEFT */}
         <div className="hidden md:flex items-center justify-center bg-white p-10">
           <img
@@ -55,7 +53,6 @@ const Login = () => {
           <h2 className="text-3xl font-bold mb-8">Welcome back!</h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-
             {/* EMAIL */}
             <div className="relative">
               <Mail
@@ -115,10 +112,8 @@ const Login = () => {
                 Register
               </Link>
             </div>
-
           </form>
         </div>
-
       </div>
     </div>
   );
