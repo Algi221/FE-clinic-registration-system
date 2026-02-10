@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { LogOut, User, LayoutDashboard, PlusCircle } from "lucide-react";
+import NotificationBell from "@/components/ui/NotificationBell";
 
 const Layout = ({ children }) => {
   const { user, logout } = useAuth();
@@ -48,6 +49,9 @@ const Layout = ({ children }) => {
               </nav>
 
               <div className="flex items-center gap-3 pl-4 border-l border-slate-200">
+                {/* Notification Bell */}
+                <NotificationBell />
+
                 <div className="flex items-center gap-2 text-sm text-slate-600 bg-teal-50 px-3 py-1.5 rounded-full border border-teal-100">
                   <User className="w-4 h-4 text-teal-600" />
                   <span className="font-medium text-teal-800">{user.name}</span>

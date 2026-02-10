@@ -5,6 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { SocketProvider } from "./context/SocketContext";
 import { Toaster } from "react-hot-toast";
 
 // Layout
@@ -52,42 +53,44 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            className:
-              "bg-white text-slate-800 shadow-lg border border-teal-100",
-            duration: 4000,
-          }}
-        />
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-
-          {/* Protected Routes */}
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <DashboardRouter />
-              </PrivateRoute>
-            }
+        <SocketProvider>
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              className:
+                "bg-white text-slate-800 shadow-lg border border-teal-100",
+              duration: 4000,
+            }}
           />
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-          <Route
-            path="/register-clinic"
-            element={
-              <PrivateRoute>
-                <RegistrationClinic />
-              </PrivateRoute>
-            }
-          />
+            {/* Protected Routes */}
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <DashboardRouter />
+                </PrivateRoute>
+              }
+            />
 
-          {/* Catch all */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+            <Route
+              path="/register-clinic"
+              element={
+                <PrivateRoute>
+                  <RegistrationClinic />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Catch all */}
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </SocketProvider>
       </AuthProvider>
     </Router>
   );
