@@ -111,7 +111,7 @@ const LandingPage = () => {
             {/* Hero Image / Illustration Placeholder */}
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform rotate-1 hover:rotate-0 transition-transform duration-500">
               <img
-                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                src="/landing-page.png"
                 alt="Hospital Reception"
                 className="w-full h-[500px] object-cover"
               />
@@ -143,28 +143,28 @@ const LandingPage = () => {
                 icon: <Baby className="w-8 h-8" />,
                 desc: "Layanan kesehatan ibu dan janin",
                 color: "bg-pink-50 text-pink-600",
-                img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                src: "/poli-kandungan.png",
               },
-              {
+                {
                 title: "Poli Umum",
                 icon: <Stethoscope className="w-8 h-8" />,
                 desc: "Pemeriksaan kesehatan umum",
                 color: "bg-blue-50 text-blue-600",
-                img: "https://images.unsplash.com/photo-1666214280557-f1b5022eb634?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                src: "/poli-umum.png",
               },
               {
-                title: "Poli Gigi",
+                title: "Poli Gizi",
                 icon: <Smile className="w-8 h-8" />,
-                desc: "Perawatan kesehatan gigi & mulut",
+                desc: "Perawatan Kesehatan Nutrisi",
                 color: "bg-purple-50 text-purple-600",
-                img: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                src: "/poli-gizi.png",
               },
               {
                 title: "Poli Kecantikan",
                 icon: <Sparkles className="w-8 h-8" />,
                 desc: "Perawatan estetika & kulit",
                 color: "bg-orange-50 text-orange-600",
-                img: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                src: "/poli-kecantikan.png",
               },
             ].map((service, idx) => (
               <div
@@ -173,7 +173,7 @@ const LandingPage = () => {
               >
                 <div className="h-48 overflow-hidden">
                   <img
-                    src={service.img}
+                    src={service.src}
                     alt={service.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
@@ -312,7 +312,7 @@ const LandingPage = () => {
           <div className="bg-white p-4 rounded-2xl shadow-lg border border-slate-100">
             <div className="h-64 rounded-xl overflow-hidden mb-4 relative">
               <img
-                src="https://images.unsplash.com/photo-1512678080530-7760d81faba6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                src="/rawat-inap.png"
                 alt="Rawat Inap"
                 className="w-full h-full object-cover"
               />
@@ -326,7 +326,7 @@ const LandingPage = () => {
           <div className="bg-white p-4 rounded-2xl shadow-lg border border-slate-100">
             <div className="h-64 rounded-xl overflow-hidden mb-4 relative">
               <img
-                src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                src="/jasa-keselamatan.png"
                 alt="Keselamatan"
                 className="w-full h-full object-cover"
               />
