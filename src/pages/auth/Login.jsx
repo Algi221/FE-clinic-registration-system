@@ -3,14 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { ArrowLeft, Mail, Lock } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
@@ -28,58 +21,105 @@ const Login = () => {
       toast.success("Login berhasil!");
       navigate("/");
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Login gagal. Cek email & password.",
-      );
+      toast.error("Login gagal. Cek email & password.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[80vh]">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl text-center">Login</CardTitle>
-          <CardDescription className="text-center">
-            Masuk ke akun Anda untuk mendaftar klinik
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
+    <div className="min-h-screen flex items-center justify-center bg-white relative px-6">
+
+      {/* BACK BUTTON */}
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-6 left-6 p-2 rounded-full border hover:bg-gray-100 transition"
+      >
+        <ArrowLeft size={20} />
+      </button>
+
+      {/* CARD */}
+      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+
+        {/* LEFT */}
+        <div className="hidden md:flex items-center justify-center bg-white p-10">
+          <img
+            src="/gambar-clinik.png"
+            alt="Login Illustration"
+            className="max-w-sm"
+          />
+        </div>
+
+        {/* RIGHT */}
+        <div className="bg-[#0F6A78] text-white p-10 flex flex-col justify-center">
+          <h2 className="text-3xl font-bold mb-8">Welcome back!</h2>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+
+            {/* EMAIL */}
+            <div className="relative">
+              <Mail
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                size={18}
+              />
               <Input
                 type="email"
-                placeholder="name@example.com"
+                placeholder="E-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="pl-11 rounded-full bg-white text-black"
               />
             </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Password</label>
+
+            {/* PASSWORD */}
+            <div className="relative">
+              <Lock
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                size={18}
+              />
               <Input
                 type="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="pl-11 rounded-full bg-white text-black"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Logging in..." : "Login"}
-            </Button>
+
+            {/* FORGOT PASSWORD */}
+            <div className="pt-1">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-white/80 hover:text-white hover:underline transition"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
+            {/* BUTTON */}
+            <div className="flex gap-4 pt-4">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="flex-1 rounded-full bg-cyan-300 text-black hover:bg-cyan-400 transition"
+              >
+                {loading ? "Logging in..." : "Login"}
+              </Button>
+
+              <Link
+                to="/register"
+                className="flex-1 text-center rounded-full border border-white py-2 hover:bg-white hover:text-[#0F6A78] transition"
+              >
+                Register
+              </Link>
+            </div>
+
           </form>
-        </CardContent>
-        <CardFooter className="flex flex-col gap-2">
-          <div className="text-sm text-center text-muted-foreground">
-            Belum punya akun?{" "}
-            <Link to="/register" className="text-primary hover:underline">
-              Daftar di sini
-            </Link>
-          </div>
-        </CardFooter>
-      </Card>
+        </div>
+
+      </div>
     </div>
   );
 };
