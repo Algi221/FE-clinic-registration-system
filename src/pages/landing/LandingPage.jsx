@@ -16,51 +16,66 @@ import {
   Instagram,
   Facebook,
   Twitter,
+  Heart,
+  ShieldCheck,
+  Zap,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ScrollVelocity from "@/components/ui/ScrollVelocity";
+import TextType from "@/components/ui/TextType";
+import { Footer } from "@/components/layout/Footer";
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-800">
+    <div className="min-h-screen bg-white font-sans text-[#0F6A78]">
       {/* Navbar */}
-      <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+      <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-xl border-b border-teal-50 shadow-[0_2px_15px_-3px_rgba(15,106,120,0.07)]">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-teal-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-teal-200">
-              <span className="mb-1">+</span>
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <img
+              src="/logo_no_bg 1.png"
+              alt="OceanCare Logo"
+              className="h-12 w-auto object-contain transition-transform group-hover:scale-105"
+            />
+            <span className="text-2xl font-black text-[#0F6A78] tracking-tighter">
               OceanCare
             </span>
           </div>
 
-          <div className="hidden md:flex items-center gap-8 font-medium text-slate-600">
-            <a href="#" className="hover:text-teal-600 transition-colors">
+          <div className="hidden md:flex items-center gap-10 font-bold text-[#0F6A78]/70 text-sm uppercase tracking-widest">
+            <a
+              href="#"
+              className="hover:text-[#0F6A78] transition-all hover:scale-105"
+            >
               Home
             </a>
-            <a href="#about" className="hover:text-teal-600 transition-colors">
+            <a
+              href="#about"
+              className="hover:text-[#0F6A78] transition-all hover:scale-105"
+            >
               Tentang Kami
             </a>
             <a
               href="#services"
-              className="hover:text-teal-600 transition-colors"
+              className="hover:text-[#0F6A78] transition-all hover:scale-105"
             >
               Layanan
             </a>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Link to="/login">
               <Button
                 variant="ghost"
-                className="font-semibold text-slate-600 hover:text-teal-600 hover:bg-teal-50"
+                className="font-bold text-[#0F6A78] hover:text-[#0F6A78] hover:bg-teal-50 px-6 rounded-xl"
               >
                 Login
               </Button>
             </Link>
             <Link to="/register">
-              <Button className="bg-teal-600 hover:bg-teal-700 text-white font-semibold shadow-lg shadow-teal-200 rounded-full px-6">
-                Register
+              <Button className="bg-[#0F6A78] hover:bg-[#148ea1] text-white font-bold shadow-xl shadow-teal-900/10 rounded-xl px-8 h-12 transition-all active:scale-95">
+                Gabung Sekarang
               </Button>
             </Link>
           </div>
@@ -68,126 +83,185 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-gradient-to-br from-slate-50 to-teal-50">
-        <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative z-10 space-y-6">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-teal-100 text-teal-700 font-semibold text-sm mb-2">
-              Layanan Kesehatan Terpercaya
+      <section className="relative pt-40 pb-32 px-6 overflow-hidden bg-gradient-to-br from-[#F8FDFF] via-white to-teal-50/30">
+        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-[40%] h-[40%] bg-teal-100 rounded-full blur-[120px] opacity-40"></div>
+        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-[40%] h-[40%] bg-emerald-100 rounded-full blur-[120px] opacity-40"></div>
+
+        <div className="container mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
+          <div className="space-y-10">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-teal-100/50 text-[#0F6A78] font-black text-[10px] uppercase tracking-[0.2em] border border-teal-200/50 backdrop-blur-sm">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Standard Medis Internasional
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight text-slate-900">
-              Selamat Datang Di <br />
-              <span className="text-teal-600 italic font-serif">
-                Klinik OceanCare
-              </span>
-            </h1>
-            <p className="text-lg text-slate-600 leading-relaxed max-w-lg">
-              Kami hadir untuk memberikan pelayanan kesehatan terbaik dengan
-              fasilitas modern dan tenaga medis profesional. Kesehatan Anda
-              adalah prioritas kami.
+            <div className="flex flex-col gap-2 min-h-[160px]">
+              <TextType
+                text="Kesehatan Anda Adalah"
+                className="text-6xl md:text-7xl font-black leading-[1.05] text-[#0F6A78] tracking-tighter"
+                loop={false}
+                showCursor={false}
+              />
+              <TextType
+                text="Seni Perawatan Kami"
+                className="text-6xl md:text-7xl font-serif italic font-normal text-teal-400 tracking-tighter"
+                initialDelay={1500}
+                loop={false}
+                cursorCharacter="_"
+              />
+            </div>
+            <p className="text-xl text-[#0F6A78]/70 font-medium leading-relaxed max-w-xl">
+              Pengalaman medis eksklusif dengan sentuhan teknologi modern dan
+              tim dokter ahli yang berdedikasi tinggi untuk kesembuhan Anda.
             </p>
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-wrap gap-6 pt-4">
               <Link to="/register">
                 <Button
                   size="lg"
-                  className="bg-teal-600 hover:bg-teal-700 text-white rounded-full px-8 h-12 shadow-xl shadow-teal-200/50"
+                  className="bg-[#0F6A78] hover:bg-[#148ea1] text-white rounded-2xl px-10 h-16 text-lg font-black shadow-2xl shadow-teal-900/20 active:scale-95 transition-all"
                 >
-                  Daftar Sekarang
+                  Mulai Konsultasi
+                  <ArrowRight className="ml-2 w-6 h-6" />
                 </Button>
               </Link>
               <Button
                 variant="outline"
                 size="lg"
-                className="border-teal-200 text-teal-700 hover:bg-teal-50 rounded-full px-8 h-12"
+                className="border-2 border-teal-100 text-[#0F6A78] hover:bg-teal-50/50 rounded-2xl px-10 h-16 text-lg font-black backdrop-blur-sm transition-all shadow-lg shadow-teal-900/5"
               >
-                Pelajari Lebih Lanjut
+                Kenali Kami
               </Button>
             </div>
           </div>
           <div className="relative">
-            {/* Abstract Background Shapes */}
-            <div className="absolute -top-10 -right-10 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-            <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-
-            {/* Hero Image / Illustration Placeholder */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform rotate-1 hover:rotate-0 transition-transform duration-500">
+            <div className="absolute -top-10 -right-10 w-72 h-72 bg-teal-200/20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="relative rounded-[3rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(15,106,120,0.15)] border-8 border-white group">
               <img
                 src="/landing-page.png"
-                alt="Hospital Reception"
-                className="w-full h-[500px] object-cover"
+                alt="Hospital"
+                className="w-full h-[600px] object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-              <div className="absolute bottom-6 left-6 text-white">
-                <p className="font-semibold text-lg">Modern & Nyaman</p>
-                <p className="text-sm opacity-90">
-                  Fasilitas Berstandar Internasional
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F6A78]/60 via-transparent to-transparent opacity-60"></div>
+              <div className="absolute bottom-10 left-10 text-white space-y-2">
+                <div className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-[10px] font-black uppercase tracking-widest w-fit">
+                  Pelayanan Elite
+                </div>
+                <h3 className="text-3xl font-black">Modern & Humanis</h3>
+                <p className="text-white/80 font-bold italic">
+                  Memberikan Kenyamanan Maksimal Sejak Langkah Pertama
                 </p>
+              </div>
+            </div>
+
+            {/* Floating Card */}
+            <div className="absolute -bottom-10 -left-10 bg-white p-6 rounded-3xl shadow-2xl border border-teal-50 animate-float">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 shadow-inner">
+                  <Zap className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="text-xs font-black text-slate-400 uppercase tracking-widest">
+                    Respon Cepat
+                  </p>
+                  <p className="text-lg font-black text-[#0F6A78]">
+                    Admin Aktif 24/7
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Scroll Velocity Animation */}
+      <div className="py-12 bg-white overflow-hidden pointer-events-none select-none">
+        <ScrollVelocity
+          texts={[
+            "OceanCare Clinic",
+            "Professional Healthcare",
+            "Trusted Doctors",
+            "24/7 Service",
+          ]}
+          velocity={50}
+          className="text-[#0F6A78]/10 text-6xl md:text-8xl font-black uppercase tracking-widest"
+        />
+      </div>
+
       {/* Services Section */}
-      <section id="services" className="py-20 px-6 bg-white">
+      <section id="services" className="py-32 px-6 bg-white relative">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <Button className="bg-teal-700 hover:bg-teal-800 text-white px-8 py-6 text-lg rounded-full shadow-lg">
-              Pilih Layanan
-            </Button>
+          <div className="text-center mb-24 space-y-4">
+            <span className="text-[11px] font-black text-teal-400 uppercase tracking-[0.4em]">
+              Layanan Kami
+            </span>
+            <h2 className="text-5xl font-black text-[#0F6A78]">
+              Spesialisasi Unggulan
+            </h2>
+            <div className="w-24 h-2 bg-[#0F6A78] mx-auto rounded-full"></div>
+            <p className="text-slate-500 max-w-2xl mx-auto text-lg leading-relaxed pt-4">
+              Kami menghadirkan layanan medis komprehensif dengan standar
+              internasional untuk memastikan kesehatan Anda dan keluarga selalu
+              terjaga dengan prima.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {[
               {
                 title: "Poli Kandungan",
-                icon: <Baby className="w-8 h-8" />,
-                desc: "Layanan kesehatan ibu dan janin",
-                color: "bg-pink-50 text-pink-600",
+                icon: <Baby className="w-10 h-10" />,
+                desc: "Perawatan komprehensif ibu & janin dengan USG 4D tercanggih.",
+                color: "bg-teal-50 text-teal-600",
                 src: "/poli-kandungan.png",
               },
-                {
+              {
                 title: "Poli Umum",
-                icon: <Stethoscope className="w-8 h-8" />,
-                desc: "Pemeriksaan kesehatan umum",
-                color: "bg-blue-50 text-blue-600",
+                icon: <Heart className="w-10 h-10" />,
+                desc: "Diagnosis akurat untuk berbagai keluhan kesehatan keluarga.",
+                color: "bg-teal-50 text-teal-600",
                 src: "/poli-umum.png",
               },
               {
                 title: "Poli Gizi",
-                icon: <Smile className="w-8 h-8" />,
-                desc: "Perawatan Kesehatan Nutrisi",
-                color: "bg-purple-50 text-purple-600",
+                icon: <Smile className="w-10 h-10" />,
+                desc: "Konsultasi diet terapeutik dan gaya hidup sehat berkelanjutan.",
+                color: "bg-teal-50 text-teal-600",
                 src: "/poli-gizi.png",
               },
               {
                 title: "Poli Kecantikan",
-                icon: <Sparkles className="w-8 h-8" />,
-                desc: "Perawatan estetika & kulit",
-                color: "bg-orange-50 text-orange-600",
+                icon: <Sparkles className="w-10 h-10" />,
+                desc: "Solusi estetika medis profesional untuk pancaran kepercayaan diri.",
+                color: "bg-teal-50 text-teal-600",
                 src: "/poli-kecantikan.png",
               },
             ].map((service, idx) => (
               <div
                 key={idx}
-                className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-100"
+                className="group bg-[#F8FDFF] rounded-[3rem] overflow-hidden p-8 border border-teal-50 hover:bg-white hover:shadow-[0_40px_80px_-20px_rgba(15,106,120,0.1)] transition-all duration-500"
               >
-                <div className="h-48 overflow-hidden">
+                <div className="h-64 rounded-[2.5rem] overflow-hidden mb-8 relative shadow-lg">
                   <img
                     src={service.src}
                     alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F6A78]/20 to-transparent"></div>
                 </div>
-                <div className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md">
-                  <div className={service.color + " p-2 rounded-full"}>
+                <div className="space-y-4">
+                  <div className="inline-flex p-3 rounded-2xl bg-white border border-teal-50 shadow-sm text-[#0F6A78]">
                     {service.icon}
                   </div>
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">
+                  <h3 className="text-2xl font-black text-[#0F6A78]">
                     {service.title}
                   </h3>
-                  <p className="text-slate-500 text-sm mb-4">{service.desc}</p>
+                  <p className="text-[#0F6A78]/60 font-medium text-sm leading-relaxed">
+                    {service.desc}
+                  </p>
+                  <Button
+                    variant="link"
+                    className="p-0 h-auto text-[#148ea1] font-black group-hover:gap-2 transition-all"
+                  >
+                    Selengkapnya <ArrowRight className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
             ))}
@@ -196,69 +270,62 @@ const LandingPage = () => {
       </section>
 
       {/* Steps Section */}
-      <section className="py-20 px-6 bg-slate-50 overflow-hidden">
-        <div className="container mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative hidden lg:block">
-            <div className="absolute inset-0 bg-teal-200 rounded-full transform translate-x-10 translate-y-10 opacity-20"></div>
-            <img
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-              alt="Guidance"
-              className="relative rounded-3xl shadow-2xl z-10 w-full max-w-md mx-auto object-cover h-[600px]"
-            />
-          </div>
+      <section className="py-24 px-6 bg-white overflow-hidden">
+        <div className="container mx-auto">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-0">
+            {/* Left Image Section */}
+            <div className="w-full lg:w-1/2 relative">
+              <div className="relative aspect-[4/5]">
+                <img
+                  src="/image 9.png"
+                  alt="Alur Pendaftaran"
+                  className="w-full h-full object-contain object-center scale-110"
+                />
+              </div>
+            </div>
 
-          <div>
-            <h2 className="text-3xl font-bold mb-12 text-slate-900">
-              Alur Pendaftaran Mudah
-            </h2>
-            <div className="space-y-6">
+            {/* Right Steps Section */}
+            <div className="w-full lg:w-1/2 space-y-6">
               {[
                 {
-                  id: 1,
                   title: "Daftar / Login Akun",
-                  desc: "Buat akun baru atau masuk jika sudah memiliki akun.",
-                  icon: <UserCheck className="w-5 h-5" />,
+                  desc: "Daftar jika belum punya akun (nama, NIK, nomor hp)",
                 },
                 {
-                  id: 2,
                   title: "Pilih Layanan / Poli",
-                  desc: "Pilih poli yang Anda butuhkan (Umum, Gigi, dll).",
-                  icon: <ClipboardList className="w-5 h-5" />,
+                  desc: "Pilih poli yang kamu butuhkan, seperti poli umum, poli gizi dll",
                 },
                 {
-                  id: 3,
                   title: "Pilih Dokter & Jadwal",
-                  desc: "Tentukan dokter dan jam yang sesuai.",
-                  icon: <Search className="w-5 h-5" />,
+                  desc: "Pilih dokter & jam praktik yang tersedia",
                 },
                 {
-                  id: 4,
                   title: "Isi Form Pendaftaran",
-                  desc: "Lengkapi data diri dan keluhan Anda.",
-                  icon: <ClipboardList className="w-5 h-5" />,
+                  desc: "Lengkapi, pastikan data benar, klik tombol kirim pendaftaran",
                 },
                 {
-                  id: 5,
                   title: "Cek Status Pendaftaran",
-                  desc: "Pantau status pendaftaran di dashboard.",
-                  icon: <CheckCircle2 className="w-5 h-5" />,
+                  desc: "Masuk ke menu riwayat, kemudian lihat status (diterima, menunggu, ditolak)",
                 },
                 {
-                  id: 6,
-                  title: "Datang Ke Klinik",
-                  desc: "Datang sesuai jadwal yang dipilih.",
-                  icon: <MapPin className="w-5 h-5" />,
+                  title: "Datang Ke Klinik Sesuai Jadwal",
+                  desc: "Tunjukkan bukti pendaftaran kepada petugas",
                 },
-              ].map((step) => (
-                <div key={step.id} className="flex gap-4 group">
-                  <div className="flex-shrink-0 w-12 h-12 bg-white rounded-full border-2 border-teal-100 flex items-center justify-center text-teal-600 font-bold text-lg shadow-sm group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300">
-                    {step.id}
+              ].map((step, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-6 bg-white p-4 rounded-[3rem] hover:shadow-lg transition-all border border-transparent hover:border-teal-50 group"
+                >
+                  <div className="w-16 h-16 shrink-0 rounded-full bg-[#1e40af] text-white flex items-center justify-center font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                    {index + 1}
                   </div>
-                  <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex-1 hover:shadow-md transition-shadow">
-                    <h3 className="font-bold text-slate-800 mb-1 flex items-center gap-2">
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-lg">
                       {step.title}
-                    </h3>
-                    <p className="text-slate-500 text-sm">{step.desc}</p>
+                    </h4>
+                    <p className="text-slate-500 text-sm leading-snug max-w-xs">
+                      {step.desc}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -267,162 +334,66 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Vision Mission */}
-      <section className="py-20 px-6 bg-white">
-        <div className="container mx-auto flex flex-col md:flex-row justify-center gap-16 item-center text-center">
-          <div className="flex flex-col items-center max-w-sm">
-            <div className="w-32 h-32 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
-              <div className="text-center">
-                <Search className="w-10 h-10 mx-auto mb-1 opacity-80" />
-                <span className="font-bold text-xl">VISI</span>
-              </div>
-            </div>
-            <p className="text-slate-600 leading-relaxed font-medium">
-              "Menjadi klinik yang terpercaya dengan pelayanan kesehatan modern,
-              cepat, dan mudah diakses melalui sistem digital."
+      {/* About Us / Vision Mission Section */}
+      <section id="about" className="py-32 px-6 bg-white relative">
+        <div className="container mx-auto space-y-24">
+          <div className="text-center space-y-4 max-w-4xl mx-auto">
+            <span className="text-[11px] font-black text-teal-400 uppercase tracking-[0.4em]">
+              Tentang Kami
+            </span>
+            <h2 className="text-5xl font-black text-[#0F6A78]">
+              Mengenal OceanCare
+            </h2>
+            <div className="w-24 h-2 bg-[#0F6A78] mx-auto rounded-full"></div>
+            <p className="text-xl text-slate-500 leading-relaxed font-medium pt-6">
+              OceanCare adalah pelopor layanan kesehatan digital yang
+              menggabungkan kehangatan pelayanan manusia dengan kecanggihan
+              teknologi. Sejak 2024, kami telah berkomitmen untuk memberikan
+              akses kesehatan yang mudah, cepat, dan terpercaya bagi masyarakat
+              Indonesia.
             </p>
           </div>
 
-          <div className="flex flex-col items-center max-w-sm">
-            <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white shadow-xl mb-6 transform hover:scale-105 transition-transform">
-              <div className="text-center">
-                <Sparkles className="w-10 h-10 mx-auto mb-1 opacity-80" />
-                <span className="font-bold text-xl">MISI</span>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="p-12 bg-teal-50/50 rounded-[4rem] border border-teal-50 space-y-8 text-center md:text-left hover:shadow-xl transition-shadow duration-500">
+              <div className="w-16 h-16 bg-[#0F6A78] rounded-2xl flex items-center justify-center text-white shadow-xl mx-auto md:mx-0">
+                <ShieldCheck className="w-8 h-8" />
               </div>
+              <h3 className="text-4xl font-black text-[#0F6A78]">
+                Visi Besar Kami
+              </h3>
+              <p className="text-2xl font-serif italic text-[#0F6A78]/80 leading-relaxed">
+                "Menghadirkan revolusi pelayanan kesehatan yang humanis melalui
+                integritas medis dan inovasi teknologi berkelanjutan."
+              </p>
             </div>
-            <p className="text-slate-600 leading-relaxed font-medium">
-              "Memberikan pelayanan prima dengan standar medis tinggi dan
-              mengutamakan kepuasan serta keselamatan pasien."
-            </p>
-          </div>
-        </div>
-      </section>
 
-      {/* Business Fields */}
-      <section className="py-0 bg-teal-700">
-        <div className="container mx-auto">
-          <h2 className="text-white text-center py-6 text-xl font-bold tracking-wide uppercase">
-            Bidang Usaha
-          </h2>
-        </div>
-      </section>
-
-      <section className="py-16 px-6 bg-slate-50">
-        <div className="container mx-auto grid md:grid-cols-2 gap-8">
-          <div className="bg-white p-4 rounded-2xl shadow-lg border border-slate-100">
-            <div className="h-64 rounded-xl overflow-hidden mb-4 relative">
-              <img
-                src="/rawat-inap.png"
-                alt="Rawat Inap"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/10 hover:bg-transparent transition-colors"></div>
+            <div className="p-12 bg-[#F8FDFF] rounded-[4rem] border border-teal-50 space-y-8 text-center md:text-left hover:shadow-xl transition-shadow duration-500">
+              <div className="w-16 h-16 bg-teal-400 rounded-2xl flex items-center justify-center text-white shadow-xl mx-auto md:mx-0">
+                <Heart className="w-8 h-8" />
+              </div>
+              <h3 className="text-4xl font-black text-[#0F6A78]">Misi Mulia</h3>
+              <ul className="space-y-4 text-[#0F6A78]/70 font-bold text-lg">
+                <li className="flex items-center gap-3 justify-center md:justify-start">
+                  <CheckCircle2 className="w-5 h-5 text-teal-400" /> Pelayanan
+                  Prima Berstandar Global
+                </li>
+                <li className="flex items-center gap-3 justify-center md:justify-start">
+                  <CheckCircle2 className="w-5 h-5 text-teal-400" /> Keamanan &
+                  Keselamatan Pasien Utama
+                </li>
+                <li className="flex items-center gap-3 justify-center md:justify-start">
+                  <CheckCircle2 className="w-5 h-5 text-teal-400" />{" "}
+                  Digitalisasi Layanan Menyeluruh
+                </li>
+              </ul>
             </div>
-            <h3 className="text-center text-teal-800 font-serif font-bold text-xl">
-              Ruang Rawat Inap
-            </h3>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl shadow-lg border border-slate-100">
-            <div className="h-64 rounded-xl overflow-hidden mb-4 relative">
-              <img
-                src="/jasa-keselamatan.png"
-                alt="Keselamatan"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/10 hover:bg-transparent transition-colors"></div>
-            </div>
-            <h3 className="text-center text-teal-800 font-serif font-bold text-xl">
-              Jasa Keselamatan & Kesehatan
-            </h3>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-50 pt-16 pb-8 border-t border-slate-200">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-10 h-10 bg-teal-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
-                  <span className="mb-1">+</span>
-                </div>
-                <span className="text-2xl font-bold text-slate-800">
-                  Ocean
-                  <span className="text-teal-600 font-serif italic">Care</span>
-                </span>
-              </div>
-              <p className="text-slate-500 leading-relaxed mb-6">
-                Jalan Margonda Raya, Kota Depok, Jawa Barat. <br />
-                Melayani dengan hati, mengobati dengan teknologi.
-              </p>
-              <div className="flex gap-4">
-                <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center text-teal-600 hover:bg-teal-600 hover:text-white transition-colors"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center text-teal-600 hover:bg-teal-600 hover:text-white transition-colors"
-                >
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center text-teal-600 hover:bg-teal-600 hover:text-white transition-colors"
-                >
-                  <Twitter className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-slate-800 mb-6">Tautan Cepat</h4>
-              <ul className="space-y-3 text-slate-600">
-                <li>
-                  <a href="#" className="hover:text-teal-600 transition-colors">
-                    Beranda
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-teal-600 transition-colors">
-                    Tentang Kami
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-teal-600 transition-colors">
-                    Layanan
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-teal-600 transition-colors">
-                    Kontak
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-slate-800 mb-6">Kontak</h4>
-              <ul className="space-y-3 text-slate-600">
-                <li className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" /> (021) 555-0123
-                </li>
-                <li className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" /> Kota Depok, Indonesia
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-slate-200 pt-8 text-center text-slate-500 text-sm">
-            &copy; 2024 Klinik OceanCare. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

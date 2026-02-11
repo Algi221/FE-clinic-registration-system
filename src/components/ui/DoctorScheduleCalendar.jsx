@@ -4,10 +4,11 @@ import {
   ChevronRight,
   Calendar as CalendarIcon,
   Clock,
+  User,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-const DoctorScheduleCalendar = ({ jadwals = [] }) => {
+const DoctorScheduleCalendar = ({ jadwals = [], pendaftaran = [] }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
 
@@ -115,40 +116,53 @@ const DoctorScheduleCalendar = ({ jadwals = [] }) => {
     ? getSchedulesForDate(selectedDate)
     : [];
 
+  const selectedDateAppointments = selectedDate
+    ? pendaftaran.filter(
+        (p) =>
+          new Date(p.tanggalPendaftaran).toDateString() ===
+          selectedDate.toDateString(),
+      )
+    : [];
+
   return (
-    <Card className="border-slate-200 shadow-md">
-      <CardHeader className="bg-gradient-to-r from-indigo-50 to-purple-50 border-b">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <CalendarIcon className="w-5 h-5 text-indigo-600" />
-          Kalender Jadwal Praktik
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6">
-        {/* Calendar Header */}
-        <div className="flex items-center justify-between mb-6">
+    <Card className="border border-slate-100 shadow-sm rounded-2xl bg-white overflow-hidden">
+      <CardHeader className="bg-white border-b border-slate-50 p-5 flex flex-row items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-teal-50 rounded-lg text-[#0F6A78]">
+            <CalendarIcon className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-slate-800">
+              Kalender Praktik
+            </h3>
+            <p className="text-xs text-slate-400 font-medium">
+              {monthNames[month]} {year}
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-1">
           <button
             onClick={prevMonth}
-            className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            className="p-1.5 rounded-lg hover:bg-slate-50 text-slate-400 hover:text-slate-600 transition-all"
           >
-            <ChevronLeft className="w-5 h-5 text-slate-600" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
-          <h3 className="text-lg font-bold text-slate-900">
-            {monthNames[month]} {year}
-          </h3>
           <button
             onClick={nextMonth}
-            className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            className="p-1.5 rounded-lg hover:bg-slate-50 text-slate-400 hover:text-slate-600 transition-all"
           >
-            <ChevronRight className="w-5 h-5 text-slate-600" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
+      </CardHeader>
 
+      <CardContent className="p-5">
         {/* Day names */}
-        <div className="grid grid-cols-7 gap-2 mb-2">
+        <div className="grid grid-cols-7 gap-1 mb-2">
           {dayNames.map((day) => (
             <div
               key={day}
-              className="text-center text-xs font-semibold text-slate-500 py-2"
+              className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-wider py-2"
             >
               {day}
             </div>
@@ -156,7 +170,7 @@ const DoctorScheduleCalendar = ({ jadwals = [] }) => {
         </div>
 
         {/* Calendar grid */}
-        <div className="grid grid-cols-7 gap-2">
+        <div className="grid grid-cols-7 gap-1">
           {calendarDays.map((date, index) => {
             if (!date) {
               return <div key={`empty-${index}`} className="aspect-square" />;
@@ -165,24 +179,36 @@ const DoctorScheduleCalendar = ({ jadwals = [] }) => {
             const hasJadwal = hasSchedule(date);
             const today = isToday(date);
             const selected = isSelected(date);
+            const dayAppointments = pendaftaran.filter(
+              (p) =>
+                new Date(p.tanggalPendaftaran).toDateString() ===
+                date.toDateString(),
+            );
+            const hasAppointments = dayAppointments.length > 0;
 
             return (
               <button
                 key={index}
                 onClick={() => handleDateClick(date)}
                 className={`
-                  aspect-square rounded-lg text-sm font-medium transition-all duration-200
-                  ${today ? "ring-2 ring-indigo-400 ring-offset-2" : ""}
-                  ${selected ? "bg-indigo-600 text-white shadow-lg scale-105" : ""}
-                  ${!selected && hasJadwal ? "bg-gradient-to-br from-purple-100 to-indigo-100 text-indigo-900 hover:from-purple-200 hover:to-indigo-200" : ""}
-                  ${!selected && !hasJadwal ? "text-slate-400 hover:bg-slate-50" : ""}
-                  relative
+                  aspect-square rounded-xl text-xs font-semibold transition-all duration-200 flex flex-col items-center justify-center relative
+                  ${today ? "ring-1 ring-teal-500 text-teal-600 bg-teal-50/50" : "text-slate-600"}
+                  ${selected ? "bg-[#0F6A78] text-white shadow-md z-10 !ring-0" : "hover:bg-slate-50"}
                 `}
               >
                 <span>{date.getDate()}</span>
-                {hasJadwal && !selected && (
-                  <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-indigo-600 rounded-full" />
-                )}
+
+                <div className="flex gap-0.5 mt-0.5 h-1">
+                  {hasJadwal && !selected && (
+                    <div className="w-1 h-1 bg-teal-400 rounded-full" />
+                  )}
+                  {hasAppointments && !selected && (
+                    <div className="w-1 h-1 bg-amber-400 rounded-full" />
+                  )}
+                  {selected && (hasJadwal || hasAppointments) && (
+                    <div className="w-1 h-1 bg-white/70 rounded-full" />
+                  )}
+                </div>
               </button>
             );
           })}
@@ -190,70 +216,87 @@ const DoctorScheduleCalendar = ({ jadwals = [] }) => {
 
         {/* Selected date details */}
         {selectedDate && (
-          <div className="mt-6 pt-6 border-t border-slate-200">
-            <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-              <CalendarIcon className="w-4 h-4 text-indigo-600" />
+          <div className="animate-in fade-in zoom-in-95 duration-200 mt-6 bg-slate-50 rounded-xl p-4 border border-slate-100">
+            <h4 className="text-xs font-bold text-slate-700 mb-3 border-b border-slate-200 pb-2">
               {selectedDate.toLocaleDateString("id-ID", {
                 weekday: "long",
-                year: "numeric",
-                month: "long",
                 day: "numeric",
+                month: "long",
               })}
             </h4>
 
-            {selectedSchedules.length > 0 ? (
-              <div className="space-y-3">
-                {selectedSchedules.map((jadwal) => (
-                  <div
-                    key={jadwal.id}
-                    className="p-4 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-indigo-100 rounded-lg">
-                        <Clock className="w-4 h-4 text-indigo-600" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-slate-900">
-                          {jadwal.jamMulai} - {jadwal.jamSelesai}
-                        </p>
-                        <p className="text-sm text-slate-600">
-                          Jadwal Praktik Rutin
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-6 text-center bg-slate-50 rounded-xl">
-                <p className="text-sm text-slate-500">
-                  Tidak ada jadwal praktik pada tanggal ini
+            <div className="space-y-4">
+              {/* Schedules */}
+              <div className="space-y-2">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                  <Clock className="w-3 h-3" /> Jam Praktik
                 </p>
+                {selectedSchedules.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {selectedSchedules.map((s) => (
+                      <span
+                        key={s.id}
+                        className="text-xs font-medium bg-white border border-slate-200 px-2 py-1 rounded-md text-slate-600"
+                      >
+                        {s.jamMulai} - {s.jamSelesai}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-slate-400 italic">
+                    Tidak ada jadwal.
+                  </p>
+                )}
               </div>
-            )}
+
+              {/* Appointments */}
+              <div className="space-y-2">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                  <User className="w-3 h-3" /> Pasien (
+                  {selectedDateAppointments.length})
+                </p>
+                {selectedDateAppointments.length > 0 ? (
+                  <div className="space-y-2 max-h-40 overflow-y-auto pr-1 custom-scrollbar">
+                    {selectedDateAppointments.map((app) => (
+                      <div
+                        key={app.id}
+                        className="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm flex justify-between items-start"
+                      >
+                        <div>
+                          <p className="text-xs font-bold text-slate-700">
+                            {app.pasien.name}
+                          </p>
+                          <p className="text-[10px] text-slate-400 truncate w-32">
+                            {app.keluhan || "-"}
+                          </p>
+                        </div>
+                        <span
+                          className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase ${
+                            app.status === "ACCEPTED"
+                              ? "bg-emerald-50 text-emerald-600"
+                              : app.status === "REJECTED"
+                                ? "bg-red-50 text-red-500"
+                                : "bg-amber-50 text-amber-600"
+                          }`}
+                        >
+                          {app.status === "ACCEPTED"
+                            ? "OK"
+                            : app.status === "REJECTED"
+                              ? "NO"
+                              : "Wait"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-slate-400 italic">
+                    Belum ada pasien.
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
         )}
-
-        {/* Legend */}
-        <div className="mt-6 pt-6 border-t border-slate-200">
-          <p className="text-xs font-semibold text-slate-500 mb-3">
-            Keterangan:
-          </p>
-          <div className="flex flex-wrap gap-4 text-xs">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-br from-purple-100 to-indigo-100 border border-indigo-200" />
-              <span className="text-slate-600">Ada Jadwal</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-indigo-600" />
-              <span className="text-slate-600">Tanggal Dipilih</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full border-2 border-indigo-400" />
-              <span className="text-slate-600">Hari Ini</span>
-            </div>
-          </div>
-        </div>
       </CardContent>
     </Card>
   );

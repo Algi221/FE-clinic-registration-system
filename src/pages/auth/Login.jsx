@@ -3,7 +3,14 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Mail, Lock } from "lucide-react";
+import {
+  ArrowLeft,
+  Mail,
+  Lock,
+  LogIn,
+  ChevronRight,
+  ShieldCheck,
+} from "lucide-react";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
@@ -17,106 +24,174 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await login(email, password);
-      toast.success("Login berhasil!");
-      navigate("/dashboard"); // Redirect ke dashboard (patient home)
+      const user = await login(email, password);
+      toast.success("Login berhasil! Selamat datang kembali.");
+
+      if (user.role === "DOCTOR") {
+        navigate("/dashboard");
+      } else {
+        navigate("/home");
+      }
     } catch (error) {
-      toast.error("Login gagal. Cek email & password.");
+      toast.error("Login gagal. Cek email & password Anda.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white relative px-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0F6A78] via-[#0a4d58] to-[#012a31] relative px-6 overflow-hidden">
+      {/* Decorative Orbs */}
+      <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-teal-500/10 rounded-full blur-[120px] animate-pulse"></div>
+      <div className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse delay-1000"></div>
+
       {/* BACK BUTTON */}
       <button
-        onClick={() => navigate(-1)}
-        className="absolute top-6 left-6 p-2 rounded-full border hover:bg-gray-100 transition"
+        onClick={() => navigate("/")}
+        className="absolute top-8 left-8 p-3 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all duration-300 backdrop-blur-md group z-50 shadow-lg"
       >
-        <ArrowLeft size={20} />
+        <ArrowLeft
+          size={20}
+          className="group-hover:-translate-x-1 transition-transform"
+        />
       </button>
 
-      {/* CARD */}
-      <div className="w-full max-w-7xl bg-white rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
-        {/* LEFT */}
-        <div className="hidden md:flex items-center justify-center bg-white p-12">
-          <img
-            src="/gambar-clinik.png"
-            alt="Login Illustration"
-            className="max-w-md"
-          />
+      {/* MAIN CONTAINER */}
+      <div className="w-full max-w-6xl bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden grid grid-cols-1 md:grid-cols-2 relative z-10 animate-in fade-in zoom-in duration-1000">
+        {/* LEFT SECTION (ILLUSTRATION - WHITE) */}
+        <div className="hidden md:flex flex-col items-center justify-center p-16 bg-white relative group">
+          <div className="relative">
+            <div className="absolute inset-0 bg-teal-50 blur-[60px] rounded-full scale-110"></div>
+            <img
+              src="/gambar-clinik.png"
+              alt="Login"
+              className="max-w-md relative z-10 animate-float"
+            />
+          </div>
+          <div className="mt-12 text-center space-y-4">
+            <h1 className="text-4xl font-black text-[#0F6A78] tracking-tighter">
+              Selamat Datang Kembali
+            </h1>
+            <p className="text-[#0F6A78]/60 text-lg font-medium max-w-xs mx-auto italic leading-relaxed">
+              Akses portal kesehatan Anda dan kelola janji temu dengan
+              kenyamanan eksklusif.
+            </p>
+          </div>
         </div>
 
-        {/* RIGHT */}
-        <div className="bg-[#0F6A78] text-white p-12 flex flex-col justify-center">
-          <h2 className="text-4xl font-bold mb-2">Form Login</h2>
-          <p className="text-white/80 mb-8">
-            Silakan masuk dengan email dan password Anda.
-          </p>
-
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* EMAIL */}
-            <div className="relative">
-              <Mail
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                size={18}
-              />
-              <Input
-                type="email"
-                placeholder="E-mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="pl-11 rounded-full bg-white text-black"
-              />
+        {/* RIGHT SECTION (FORM - GREEN) */}
+        <div className="bg-[#0F6A78] p-12 md:p-20 flex flex-col justify-center relative text-white">
+          <div className="max-w-md mx-auto w-full">
+            <div className="mb-12">
+              <div className="inline-flex p-5 bg-white/10 rounded-2xl mb-6 shadow-inner backdrop-blur-sm">
+                <img
+                  src="/logo_no_bg 1.png"
+                  alt="Logo"
+                  className="w-10 h-auto object-contain brightness-0 invert"
+                />
+              </div>
+              <h2 className="text-4xl font-black text-white mb-3 tracking-tighter uppercase">
+                Login Akun
+              </h2>
+              <p className="text-white/60 font-bold text-sm tracking-widest uppercase">
+                Silakan masuk untuk melanjutkan akses
+              </p>
             </div>
 
-            {/* PASSWORD */}
-            <div className="relative">
-              <Lock
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                size={18}
-              />
-              <Input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="pl-11 rounded-full bg-white text-black"
-              />
-            </div>
+            <form onSubmit={handleSubmit} className="space-y-8">
+              {/* EMAIL */}
+              <div className="space-y-3">
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-2">
+                  Alamat Email
+                </label>
+                <div className="relative group/field">
+                  <Mail
+                    className="absolute left-5 top-1/2 -translate-y-1/2 text-white/40 group-focus-within/field:text-white transition-colors"
+                    size={20}
+                  />
+                  <Input
+                    type="email"
+                    placeholder="nama@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="pl-14 h-16 rounded-[1.25rem] border-2 border-white/10 focus:border-white/30 transition-all bg-white/5 font-bold text-white placeholder:text-white/20 shadow-inner"
+                  />
+                </div>
+              </div>
 
-            {/* FORGOT PASSWORD */}
-            <div className="pt-1">
-              <Link
-                to="/forgot-password"
-                className="text-sm text-white/80 hover:text-white hover:underline transition"
-              >
-                Forgot password?
-              </Link>
-            </div>
+              {/* PASSWORD */}
+              <div className="space-y-3">
+                <div className="flex justify-between items-center px-2">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">
+                    Password
+                  </label>
+                  <Link
+                    to="/forgot-password"
+                    className="text-[10px] font-black text-teal-300 hover:text-white transition-colors"
+                  >
+                    Lupa Password?
+                  </Link>
+                </div>
+                <div className="relative group/field">
+                  <Lock
+                    className="absolute left-5 top-1/2 -translate-y-1/2 text-white/40 group-focus-within/field:text-white transition-colors"
+                    size={20}
+                  />
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="pl-14 h-16 rounded-[1.25rem] border-2 border-white/10 focus:border-white/30 transition-all bg-white/5 font-bold text-white placeholder:text-white/20 shadow-inner"
+                  />
+                </div>
+              </div>
 
-            {/* BUTTON */}
-            <div className="flex gap-4 pt-4">
-              <Button
-                type="submit"
-                disabled={loading}
-                className="flex-1 rounded-full bg-cyan-300 text-black hover:bg-cyan-400 transition"
-              >
-                {loading ? "Logging in..." : "Login"}
-              </Button>
+              {/* ACTION BUTTONS */}
+              <div className="flex flex-col gap-6 pt-6">
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="h-16 rounded-[1.25rem] bg-white hover:bg-teal-50 text-[#0F6A78] font-black text-lg shadow-2xl shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-500"
+                >
+                  {loading ? (
+                    <div className="flex items-center gap-3">
+                      <div className="w-5 h-5 border-4 border-[#0F6A78]/30 border-t-[#0F6A78] rounded-full animate-spin"></div>
+                      Memverifikasi...
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-3">
+                      Masuk Sekarang
+                      <ChevronRight size={24} />
+                    </div>
+                  )}
+                </Button>
 
-              <Link
-                to="/register"
-                className="flex-1 text-center rounded-full border border-white py-2 hover:bg-white hover:text-[#0F6A78] transition"
-              >
-                Register
-              </Link>
-            </div>
-          </form>
+                <div className="text-center">
+                  <p className="text-white/40 font-bold text-sm">
+                    Belum memiliki akun OceanCare?{" "}
+                    <Link
+                      to="/register"
+                      className="font-black text-white hover:text-teal-200 transition-colors underline-offset-8 hover:underline decoration-2"
+                    >
+                      Daftar Gratis
+                    </Link>
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
+
+      {/* Floating Info */}
+      <div className="absolute bottom-10 right-10 flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10 shadow-2xl">
+        <ShieldCheck className="text-teal-300 w-6 h-6" />
+        <span className="text-white/80 text-[10px] font-black uppercase tracking-widest">
+          Portal Medis Terenkripsi
+        </span>
       </div>
     </div>
   );
