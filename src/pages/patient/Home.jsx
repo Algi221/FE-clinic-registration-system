@@ -29,11 +29,14 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import { useSocket } from "@/context/SocketContext";
+
 import TextType from "@/components/ui/TextType";
 
 const PatientDashboard = () => {
   const { user } = useAuth();
   const { t } = useLanguage();
+  const { on, off } = useSocket();
   const [pendaftaran, setPendaftaran] = useState([]);
   const [stats, setStats] = useState({
     total: 0,
@@ -64,6 +67,13 @@ const PatientDashboard = () => {
 
   useEffect(() => {
     fetchPendaftaran();
+
+    // Listen for status updates in real-time
+    on("registration-status-update", fetchPendaftaran);
+
+    return () => {
+      off("registration-status-update", fetchPendaftaran);
+    };
   }, []);
 
   const getStatusBadge = (status) => {
@@ -339,6 +349,90 @@ const PatientDashboard = () => {
           </div>
         </Card>
       </div>
+
+      {/* Google Maps Section */}
+      <section className="mt-12">
+        <div className="flex items-center gap-4 mb-6">
+          <h2 className="text-xl font-bold text-slate-800">
+            {t("location_clinic") || "Lokasi Klinik"}
+          </h2>
+          <div className="flex-1 h-px bg-slate-100"></div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <Card className="lg:col-span-2 overflow-hidden border border-slate-100 shadow-sm h-[400px] rounded-2xl bg-white">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.11183389146!2d106.82902351139423!3d-6.382848562391696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ec069c9b0717%3A0xc3f9479e09d17ed6!2sJl.%20Margonda%20Raya%2C%20Depok%2C%20Jawa%20Barat!5e0!3m2!1sen!2sid!4v1740465000000!5m2!1sen!2sid"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="OceanCare Clinic Location"
+            ></iframe>
+          </Card>
+
+          <div className="flex flex-col gap-6">
+            <Card className="p-6 border border-slate-100 shadow-sm rounded-2xl bg-white">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center text-[#0F6A78]">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-800">Alamat Kami</h3>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    OceanCare Premium Clinic
+                  </p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Jl. Margonda Raya No. 123,
+                <br />
+                Kota Depok, Jawa Barat
+                <br />
+                Indonesia 16424
+              </p>
+            </Card>
+
+            <Card className="p-6 border border-slate-100 shadow-sm rounded-2xl bg-white">
+              <h3 className="font-bold text-slate-800 mb-4 text-sm">
+                Jam Operasional
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-500">Senin - Jumat</span>
+                  <span className="font-bold text-slate-700">
+                    08:00 - 21:00
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-500">Sabtu</span>
+                  <span className="font-bold text-slate-700">
+                    08:00 - 18:00
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-500">Minggu</span>
+                  <span className="font-bold text-[#0F6A78]">
+                    Hanya Darurat
+                  </span>
+                </div>
+              </div>
+            </Card>
+
+            <a
+              href="https://maps.google.com/?q=Jl.+Margonda+Raya+No.+123,+Depok"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="w-full h-12 rounded-xl bg-[#0F6A78] hover:bg-[#0d5661] text-white font-bold transition-all shadow-sm">
+                Buka di Maps
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

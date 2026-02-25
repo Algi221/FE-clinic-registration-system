@@ -16,10 +16,12 @@ import {
   ShieldCheck,
   ChevronRight,
 } from "lucide-react";
+import { useSocket } from "@/context/SocketContext";
 import { toast } from "react-hot-toast";
 
 const PatientHistory = () => {
   const { user } = useAuth();
+  const { on, off } = useSocket();
   const [riwayat, setRiwayat] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -38,6 +40,13 @@ const PatientHistory = () => {
 
   useEffect(() => {
     fetchRiwayat();
+
+    // Listen for status updates in real-time
+    on("registration-status-update", fetchRiwayat);
+
+    return () => {
+      off("registration-status-update", fetchRiwayat);
+    };
   }, []);
 
   const getStatusBadge = (status) => {

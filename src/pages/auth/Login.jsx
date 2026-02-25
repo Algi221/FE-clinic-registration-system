@@ -33,7 +33,10 @@ const Login = () => {
         navigate("/home");
       }
     } catch (error) {
-      toast.error("Login gagal. Cek email & password Anda.");
+      const errorMessage =
+        error.response?.data?.message ||
+        "Login gagal. Cek email & password Anda.";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

@@ -39,8 +39,10 @@ const Register = () => {
       await register(formData.name, formData.email, formData.password);
       toast.success("Pendaftaran berhasil! Silakan login untuk masuk.");
       navigate("/login");
-    } catch {
-      toast.error("Registrasi gagal. Email mungkin sudah terdaftar.");
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Registrasi gagal. Silakan coba lagi.";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

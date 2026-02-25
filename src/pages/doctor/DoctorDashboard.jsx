@@ -31,10 +31,13 @@ import {
 } from "lucide-react";
 import DoctorScheduleCalendar from "@/components/ui/DoctorScheduleCalendar";
 
+import { useSocket } from "@/context/SocketContext";
+
 import TextType from "@/components/ui/TextType";
 
 const DoctorDashboard = () => {
   const { user } = useAuth();
+  const { on, off } = useSocket();
   const [pendaftaran, setPendaftaran] = useState([]);
   const [jadwals, setJadwals] = useState([]);
   const [stats, setStats] = useState({
@@ -88,6 +91,15 @@ const DoctorDashboard = () => {
   useEffect(() => {
     fetchPendaftaran();
     fetchJadwals();
+
+    // Listen for new registrations in real-time
+    on("new-registration", fetchPendaftaran);
+    on("registration-status-update", fetchPendaftaran);
+
+    return () => {
+      off("new-registration", fetchPendaftaran);
+      off("registration-status-update", fetchPendaftaran);
+    };
   }, []);
 
   const handleUpdateStatus = async (id, status) => {
