@@ -392,6 +392,97 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Location Section */}
+      <section
+        id="location"
+        className="py-24 px-6 bg-[#F8FDFF] relative overflow-hidden"
+      >
+        <div className="absolute top-0 left-0 w-64 h-64 bg-teal-100/20 rounded-full blur-3xl"></div>
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <span className="text-[11px] font-black text-teal-400 uppercase tracking-[0.4em]">
+              Lokasi Kami
+            </span>
+            <h2 className="text-5xl font-black text-[#0F6A78]">
+              Kunjungi Klinik Kami
+            </h2>
+            <div className="w-24 h-2 bg-[#0F6A78] mx-auto rounded-full"></div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+            <div className="lg:col-span-2 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white h-[500px] relative group">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.11183389146!2d106.82902351139423!3d-6.382848562391696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ec069c9b0717%3A0xc3f9479e09d17ed6!2sJl.%20Margonda%20Raya%2C%20Depok%2C%20Jawa%20Barat!5e0!3m2!1sen!2sid!4v1740465000000!5m2!1sen!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="OceanCare Clinic Location"
+                className="grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
+              ></iframe>
+            </div>
+
+            <div className="space-y-8">
+              <div className="bg-white p-10 rounded-[3rem] shadow-xl border border-teal-50 space-y-6">
+                <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center text-[#0F6A78]">
+                  <MapPin className="w-8 h-8" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-black text-[#0F6A78]">
+                    Alamat Pusat
+                  </h3>
+                  <p className="text-[#0F6A78]/60 font-medium leading-relaxed">
+                    Jl. Margonda Raya No. 123,
+                    <br />
+                    Kota Depok, Jawa Barat
+                    <br />
+                    Indonesia 16424
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-teal-50">
+                  <div className="flex items-center gap-4 text-[#0F6A78]">
+                    <Phone className="w-5 h-5" />
+                    <span className="font-bold">(021) 555-0812</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[#0F6A78] p-10 rounded-[3rem] shadow-2xl text-white space-y-6">
+                <h3 className="text-2xl font-black">Jam Operasional</h3>
+                <div className="space-y-4">
+                  {[
+                    { day: "Senin - Jumat", time: "08:00 - 21:00" },
+                    { day: "Sabtu", time: "08:00 - 18:00" },
+                    { day: "Minggu", time: "Hanya Darurat", highlight: true },
+                  ].map((item, i) => (
+                    <div key={i} className="flex justify-between items-center">
+                      <span className="font-medium opacity-80">{item.day}</span>
+                      <span
+                        className={`font-black ${item.highlight ? "text-teal-300" : "text-white"}`}
+                      >
+                        {item.time}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href="https://maps.google.com/?q=Jl.+Margonda+Raya+No.+123,+Depok"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button className="w-full bg-white text-[#0F6A78] hover:bg-teal-50 font-black py-4 rounded-2xl transition-all active:scale-95">
+                    Petunjuk Arah
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <Footer />
     </div>
